@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+  <div class="flex flex-col items-center justify-center h-screen bg-white text-gray-900">
     <div class="max-w-md w-full space-y-8">
       <div class="text-center">
         <h1 class="text-4xl font-bold">Audio Transcriber</h1>
         <p class="text-gray-400 mt-2">Record and transcribe your audio</p>
       </div>
-      <div class="bg-gray-800 rounded-lg p-8 space-y-6 shadow-lg">
-        <div class="flex items-center justify-between mx-8">
+      <div class="bg-primary-dark rounded-lg p-8 space-y-6 shadow-lg">
+        <div class="flex items-center justify-start space-x-4">
           <button
-            :class="running ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-600'"
+            :class="running ? 'bg-red-400 hover:bg-red-600 animate-pulse' : 'bg-primary'"
             class="text-white font-bold py-4 px-8 rounded-full transition-colors duration-300"
             @click="onStart()"
             :disabled="!supported"
@@ -30,23 +30,22 @@
               <line x1="12" x2="12" y1="19" y2="22"></line>
             </svg>
           </button>
-          <div class="text-4xl font-bold">{{ padLeft(minutes) }}:{{ padLeft(seconds) }}</div>
+          <div class="text-4xl font-bold text-white" v-if="running">{{ padLeft(minutes) }}:{{ padLeft(seconds) }}</div>
         </div>
-        <div>
-          <textarea
-            class="bg-gray-800 border-2 border-gray-700 rounded-lg w-full h-32 p-4 text-white focus:outline-none focus:border-gray-600 resize-none"
-            placeholder="Transcribed text will appear here..."
-            v-model="transcription"
-          ></textarea>
+        <div v-if="transcription || playbackUrl">
+          <div class="border-primary border-2 border-gray-700 rounded-md w-full p-4 mb-6 text-white">
+            {{ transcription }}
+          </div>
+
           <audio :controls="!!playbackUrl" :src="playbackUrl" class="w-full"></audio>
         </div>
-        <div class="flex items-center justify-center">
-          <button class="py-2 px-4 rounded-lg border border-gray-600" @click="onReset()">reset</button>
+
+        <div class="flex items-center justify-center space-x-4" :class="playbackUrl || 'hidden'">
+          <button class="text-white font-bold py-4 px-8 rounded-full bg-primary w-1/3" @click="onReset()">reset</button>
           <a
-            class="py-2 px-4 rounded-lg border border-gray-600"
+            class="text-white font-bold py-4 px-8 rounded-full bg-primary w-1/3"
             download
             filename="audio.mp3"
-            :class="playbackUrl || 'hidden'"
             :href="playbackUrl"
             >download</a
           >
@@ -117,7 +116,14 @@ onMounted(() => {
 </script>
 
 <style>
+.border-primary {
+  border-color: #53ac6f;
+}
 .bg-primary {
+  background-color: #53ac6f;
+}
+
+.bg-primary-dark {
   background-color: #428958;
 }
 </style>

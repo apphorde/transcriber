@@ -1,3 +1,3 @@
-# Pomodoro
+# Transcriber
 
-A pomodoro app
+Convert voice to text.
