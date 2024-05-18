@@ -15,8 +15,10 @@ export function useMicrophone() {
     recorder.value = new MediaRecorder(stream, { audioBitsPerSecond: 128000 });
   }
 
-  function start() {
+  async function start() {
     chunks.length = 0;
+    await capture();
+
     const mr = recorder.value;
 
     if (mr) {

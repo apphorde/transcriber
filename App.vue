@@ -1,15 +1,16 @@
 <template>
-  <div class="flex flex-col items-center justify-center h-screen bg-white text-gray-900">
+  <div class="flex flex-col items-center justify-center h-screen bg-primary text-white">
     <div class="max-w-md w-full space-y-8">
       <div class="text-center">
         <h1 class="text-4xl font-bold">Audio Transcriber</h1>
-        <p class="text-gray-400 mt-2">Record and transcribe your audio</p>
+        <p class="opacity-80 mt-2">Record and transcribe your audio</p>
       </div>
-      <div class="bg-primary-dark rounded-lg p-8 space-y-6 shadow-lg">
-        <div class="flex items-center justify-start space-x-4">
+      <div class="rounded-lg p-8 space-y-6 shaddow-lg">
+        <div class="flex items-center justify-between space-x-4 bg-darker rounded-full py-4 px-4">
+          <div class="text-4xl font-bold text-white pl-4">{{ padLeft(minutes) }}:{{ padLeft(seconds) }}</div>
           <button
-            :class="running ? 'bg-red-400 hover:bg-red-600 animate-pulse' : 'bg-primary'"
-            class="text-white font-bold py-4 px-8 rounded-full transition-colors duration-300"
+            :class="running ? 'bg-red-400 hover:bg-red-600 animate animate-pulse' : ''"
+            class="text-white font-bold py-4 px-4 rounded-full transition-colors duration-300"
             @click="onStart()"
             :disabled="!supported"
           >
@@ -30,25 +31,48 @@
               <line x1="12" x2="12" y1="19" y2="22"></line>
             </svg>
           </button>
-          <div class="text-4xl font-bold text-white" v-if="running">{{ padLeft(minutes) }}:{{ padLeft(seconds) }}</div>
         </div>
-        <div v-if="transcription || playbackUrl">
-          <div class="border-primary border-2 border-gray-700 rounded-md w-full p-4 mb-6 text-white">
-            {{ transcription }}
+        <div v-if="transcription || playbackUrl" class="space-y-6">
+          <audio ref="player" :src="playbackUrl" class="w-full"></audio>
+
+          <div class="flex items-center justify-between space-x-4">
+            <button @click="onPlayPause()" class="text-white py-3 px-8 rounded-full bg-darker text-center">
+              <svg
+                v-if="playing"
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 -960 960 960"
+                width="24"
+                fill="currentColor"
+              >
+                <path d="M240-240v-480h480v480H240Z" />
+              </svg>
+              <svg
+                v-if="!playing"
+                xmlns="http://www.w3.org/2000/svg"
+                height="24"
+                viewBox="0 -960 960 960"
+                width="24"
+                fill="currentColor"
+              >
+                <path d="M320-200v-560l440 280-440 280Z" />
+              </svg>
+            </button>
+            <button class="text-white font-bold py-3 px-8 rounded-full bg-darker w-1/2 text-center" @click="onReset()">
+              reset
+            </button>
+            <a
+              class="text-white font-bold py-3 px-8 rounded-full bg-darker w-1/2 text-center"
+              download
+              filename="audio.mp3"
+              :href="playbackUrl"
+              >download</a
+            >
           </div>
 
-          <audio :controls="!!playbackUrl" :src="playbackUrl" class="w-full"></audio>
-        </div>
-
-        <div class="flex items-center justify-center space-x-4" :class="playbackUrl || 'hidden'">
-          <button class="text-white font-bold py-4 px-8 rounded-full bg-primary w-1/3" @click="onReset()">reset</button>
-          <a
-            class="text-white font-bold py-4 px-8 rounded-full bg-primary w-1/3"
-            download
-            filename="audio.mp3"
-            :href="playbackUrl"
-            >download</a
-          >
+          <div class="rounded-md w-full text-white">
+            {{ transcription }}
+          </div>
         </div>
       </div>
     </div>
@@ -56,26 +80,36 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
-import { useMicrophone } from './useMicrophone.js';
 import vtt from 'https://vtt.jsfn.run/index.mjs';
+import { computed, ref, watch } from 'vue';
+import { useMicrophone } from './useMicrophone.js';
 
-const { capture, start, stop, audio, supported } = useMicrophone();
+const { start, stop, audio, supported } = useMicrophone();
 
 let timer = 0;
 const playbackUrl = ref('');
 const transcription = ref('');
 const running = ref(false);
 const elapsedTime = ref(0);
+const player = ref<HTMLAudioElement>();
+const playing = ref(false);
 const minutes = computed(() => Math.floor(elapsedTime.value / 60));
 const seconds = computed(() => Math.floor(elapsedTime.value % 60));
-
 const padLeft = (n: number) => String(n).padStart(2, '0');
 
 async function transcribe() {
   clearInterval(timer);
   running.value = false;
   stop();
+}
+
+function onPlayPause() {
+  if (player.value?.paused) {
+    player.value.play();
+    return;
+  }
+
+  player.value?.pause();
 }
 
 async function onChange() {
@@ -110,20 +144,20 @@ function onReset() {
   elapsedTime.value = 0;
 }
 
-onMounted(() => {
-  capture();
+watch(player, () => {
+  if (player.value) {
+    player.value!.onplay = () => (playing.value = true);
+    player.value!.onpause = () => (playing.value = false);
+  }
 });
 </script>
 
 <style>
-.border-primary {
-  border-color: #53ac6f;
-}
-.bg-primary {
-  background-color: #53ac6f;
+.bg-darker {
+  background-color: #428958;
 }
 
-.bg-primary-dark {
-  background-color: #428958;
+.bg-primary {
+  background-color: #53ac6f;
 }
 </style>
