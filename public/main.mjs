@@ -2,7 +2,7 @@ import vtt from "https://vtt.jsfn.run/index.mjs";
 import { computed, ref, watch, tpl, mount } from "@lithium/web";
 import { useMicrophone } from "./useMicrophone.mjs";
 
-const template = tpl`<template>
+const template = tpl`
   <div class="flex flex-col items-center justify-center h-screen bg-primary text-white">
     <div class="max-w-md w-full space-y-8">
       <div class="text-center">
@@ -83,8 +83,7 @@ const template = tpl`<template>
         </template>
       </div>
     </div>
-  </div>
-</template>`;
+  </div>`;
 
 function setup() {
   const { start, stop, audio, supported } = useMicrophone();
