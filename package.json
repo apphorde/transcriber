@@ -1,5 +1,5 @@
 {
-  "name": "pomodoro",
+  "name": "transcriber",
   "version": "0.0.0",
   "type": "module",
   "prettier": "@cloud-cli/prettier-config",
@@ -7,12 +7,9 @@
     "ci": "npm i && npm run build",
     "build": "vite build"
   },
-  "dependencies": {
-    "vue": "^3.4.21"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@cloud-cli/prettier-config": "^1.0.0",
-    "@vitejs/plugin-vue": "^5.0.4",
     "vite": "^5.2.0"
   }
 }

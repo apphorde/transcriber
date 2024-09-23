@@ -8,9 +8,27 @@
     <link rel="manifest" href="/assets/manifest.json" />
     <meta name="theme-color" content="#53ac6f" />
     <link rel="stylesheet" href="https://wdn.homebots.io/tailwind.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@lithium/": "https://--lithium.static.apphor.de/",
+          "@sodium/": "https://--sodium.static.apphor.de/",
+          "@lucide/": "https://--lucide.static.apphor.de/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/main.ts"></script>
+    <style>
+      .bg-darker {
+        background-color: #428958;
+      }
+
+      .bg-primary {
+        background-color: #53ac6f;
+      }
+    </style>
   </body>
 </html>
