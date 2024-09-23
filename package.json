@@ -4,12 +4,9 @@
   "type": "module",
   "prettier": "@cloud-cli/prettier-config",
   "scripts": {
-    "ci": "npm i && npm run build",
-    "build": "vite build"
+    "ci": "echo true"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@cloud-cli/prettier-config": "^1.0.0",
-    "vite": "^5.2.0"
+    "@cloud-cli/prettier-config": "^1.0.0"
   }
 }

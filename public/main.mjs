@@ -1,6 +1,6 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
 import { computed, ref, watch, tpl, mount } from "@lithium/web";
-import { useMicrophone } from "./useMicrophone.js";
+import { useMicrophone } from "./useMicrophone.mjs";
 
 const template = tpl`<template>
   <div class="flex flex-col items-center justify-center h-screen bg-primary text-white">

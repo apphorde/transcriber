@@ -1,14 +1,14 @@
-import { ref } from 'vue';
+import { ref } from "@lithium/web";
 
 export function useMicrophone() {
-  const audio = ref<Blob | null>(null);
+  const audio = ref(null);
   const supported = ref(!!navigator.mediaDevices?.getUserMedia);
-  const recorder = ref<MediaRecorder | null>(null);
-  let chunks: any[] = [];
+  const recorder = ref(null);
+  let chunks = [];
 
   async function capture() {
     if (!navigator.mediaDevices?.getUserMedia) {
-      throw new Error('Not supported');
+      throw new Error("Not supported");
     }
 
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
