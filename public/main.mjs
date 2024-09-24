@@ -13,7 +13,7 @@ const template = tpl`
         <div class="flex items-center justify-between space-x-4 bg-darker rounded-full py-4 px-4">
           <div class="text-4xl font-bold text-white pl-4">{{ padLeft(minutes) }}:{{ padLeft(seconds) }}</div>
           <button
-            bind-class-name="'text-white font-bold py-4 px-4 rounded-full transition-colors duration-300 ' + (running ? 'bg-red-400 hover:bg-red-600 animate animate-pulse' : '')"
+            bind-class-name="'text-white font-bold py-4 px-4 rounded-full transition-colors duration-300 ' + (running.value ? 'bg-red-400 hover:bg-red-600 animate animate-pulse' : '')"
             on-click="onStart()"
             bind-disabled="!supported.value"
           >
@@ -41,7 +41,7 @@ const template = tpl`
 
             <div class="flex items-center justify-between space-x-4">
               <button on-click="onPlayPause()" class="text-white py-3 px-8 rounded-full bg-darker text-center">
-                <template if="playing"
+                <template if="playing.value"
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24"
