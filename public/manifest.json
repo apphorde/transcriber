@@ -1,7 +1,7 @@
 {
   "short_name": "Transcribe",
   "name": "Transcribe",
-  "description": "Transcribe audio to text",
+  "description": "Transcribe audio into text",
   "icons": [
     {
       "src": "/icon.svg",

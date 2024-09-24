@@ -27,7 +27,6 @@ export function useMicrophone() {
         if (chunks.length) {
           const blob = new Blob(chunks, { type: mr?.mimeType });
           audio.value = blob;
-          console.log(blob);
         }
       };
 
