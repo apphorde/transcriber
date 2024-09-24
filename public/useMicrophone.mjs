@@ -1,9 +1,9 @@
-import { ref, unref } from "@lithium/web";
+import { shallowRef, unref } from "@lithium/web";
 
 export function useMicrophone() {
-  const audio = ref(null);
-  const supported = ref(!!navigator.mediaDevices?.getUserMedia);
-  const recorder = ref(null, { shallow: true });
+  const audio = shallowRef(null);
+  const supported = shallowRef(!!navigator.mediaDevices?.getUserMedia);
+  const recorder = shallowRef(null, { shallow: true });
   let chunks = [];
 
   async function capture() {
