@@ -1,9 +1,9 @@
-import { ref } from "@lithium/web";
+import { ref, unref } from "@lithium/web";
 
 export function useMicrophone() {
   const audio = ref(null);
   const supported = ref(!!navigator.mediaDevices?.getUserMedia);
-  const recorder = ref(null);
+  const recorder = ref(null, { shallow: true });
   let chunks = [];
 
   async function capture() {
@@ -19,7 +19,7 @@ export function useMicrophone() {
     chunks.length = 0;
     await capture();
 
-    const mr = recorder.value;
+    const mr = unref(recorder);
 
     if (mr) {
       mr.ondataavailable = (e) => chunks.push(e.data);
