@@ -162,6 +162,7 @@ function setup() {
     supported,
     playbackUrl,
     running,
+    player,
     padLeft,
     onStart,
     onPlayPause,
