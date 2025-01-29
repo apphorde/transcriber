@@ -1,4 +1,4 @@
-import { shallowRef, unref } from "@lithium/web";
+import { shallowRef, unref } from "@li3/web";
 
 export function useMicrophone() {
   const audio = shallowRef(null);
