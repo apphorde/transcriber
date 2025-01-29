@@ -1,5 +1,5 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { computed, ref, watch, tpl, mount, domReady } from "@lithium/web";
+import { computed, ref, watch, tpl, mount, domReady } from "@li3/web";
 import { useMicrophone } from "./useMicrophone.mjs";
 
 const template = tpl`
