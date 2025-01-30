@@ -1,7 +1,6 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { computed, ref, watch, tpl, mount, domReady } from "@li3/web";
+import { computed, ref, watch, mount, domReady } from "@li3/web";
 import { useMicrophone } from "./useMicrophone.mjs";
-
 
 export default function setup() {
   const { start, stop, audio, supported } = useMicrophone();
@@ -87,5 +86,3 @@ export default function setup() {
     onReset,
   };
 }
-
-domReady().then(() => mount("#app", { template, setup }));
