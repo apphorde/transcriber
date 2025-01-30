@@ -1,6 +1,6 @@
 {
-  "short_name": "Transcribe",
-  "name": "Transcribe",
+  "short_name": "Transcriber",
+  "name": "Transcriber",
   "description": "Transcribe audio into text",
   "icons": [
     {
