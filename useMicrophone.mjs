@@ -1,9 +1,9 @@
-import { shallowRef, unref } from "@li3/web";
+import { signal } from "@li3/reactive";
 
 export function useMicrophone() {
-  const audio = shallowRef(null);
-  const supported = shallowRef(!!navigator.mediaDevices?.getUserMedia);
-  const recorder = shallowRef(null, { shallow: true });
+  const supported = signal(!!navigator.mediaDevices?.getUserMedia);
+  const audio = signal(null, { shallow: true });
+  const recorder = signal(null, { shallow: true });
   let chunks = [];
 
   async function capture() {
@@ -19,7 +19,7 @@ export function useMicrophone() {
     chunks.length = 0;
     await capture();
 
-    const mr = unref(recorder);
+    const mr = recorder.value;
 
     if (mr) {
       mr.ondataavailable = (e) => chunks.push(e.data);

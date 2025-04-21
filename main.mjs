@@ -1,21 +1,21 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { computed, ref, watch } from "@li3/web";
+import { effect, signal } from "@li3/reactive";
 import { useMicrophone } from "./useMicrophone.mjs";
 
 export default function setup() {
   const { start, stop, audio, supported } = useMicrophone();
 
   let timer = 0;
-  const playbackUrl = ref("");
-  const transcription = ref("");
-  const running = ref(false);
-  const playing = ref(false);
-  const elapsedTime = ref(0);
-  const minutes = computed(() => Math.floor(elapsedTime.value / 60));
-  const seconds = computed(() => Math.floor(elapsedTime.value % 60));
+  const playbackUrl = signal("");
+  const transcription = signal("");
+  const running = signal(false);
+  const playing = signal(false);
+  const elapsedTime = signal(0);
+  const minutes = effect(() => Math.floor(elapsedTime.value / 60));
+  const seconds = effect(() => Math.floor(elapsedTime.value % 60));
   const padLeft = (n) => String(n).padStart(2, "0");
 
-  const player = ref(null);
+  const player = signal(null);
 
   async function transcribe() {
     clearInterval(timer);
