@@ -1,5 +1,5 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { computed, ref, watch, mount, domReady } from "@li3/web";
+import { computed, ref, watch } from "@li3/web";
 import { useMicrophone } from "./useMicrophone.mjs";
 
 export default function setup() {
