@@ -1,5 +1,5 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { effect, signal } from "@li3/reactive";
+import { effect, signal, observer } from "@li3/reactive";
 import { useMicrophone } from "./useMicrophone.mjs";
 
 export default function setup() {
@@ -14,7 +14,6 @@ export default function setup() {
   const minutes = effect(() => Math.floor(elapsedTime.value / 60));
   const seconds = effect(() => Math.floor(elapsedTime.value % 60));
   const padLeft = (n) => String(n).padStart(2, "0");
-
   const player = signal(null);
 
   async function transcribe() {
@@ -39,7 +38,7 @@ export default function setup() {
     }
   }
 
-  watch(audio, onChange);
+  observer(audio, onChange);
 
   async function onStart() {
     if (running.value) {
@@ -64,7 +63,7 @@ export default function setup() {
     elapsedTime.value = 0;
   }
 
-  watch(player, (value) => {
+  observer(player, (value) => {
     if (value) {
       player.value.onplay = () => (playing.value = true);
       player.value.onpause = () => (playing.value = false);
