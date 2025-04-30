@@ -7,7 +7,7 @@ export default function setup() {
 
   let timer = 0;
   const playbackUrl = signal("");
-  const transcription = signal("");
+  const transcriptions = signal([]);
   const running = signal(false);
   const playing = signal(false);
   const converting = signal(false);
@@ -36,7 +36,10 @@ export default function setup() {
     if (audio.value) {
       playbackUrl.value = URL.createObjectURL(audio.value);
       converting.value = true;
-      transcription.value = await vtt(audio.value);
+      transcriptions.value = [
+        await vtt(audio.value),
+        ...transcriptions.value
+      ];
       converting.value = false;
     }
   }
@@ -61,7 +64,7 @@ export default function setup() {
 
   function onReset() {
     playbackUrl.value = "";
-    transcription.value = "";
+    transcriptions.value = [];
     running.value = false;
     elapsedTime.value = 0;
   }
@@ -76,7 +79,7 @@ export default function setup() {
   return {
     minutes,
     seconds,
-    transcription,
+    transcriptions,
     playing,
     converting,
     supported,

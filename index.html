@@ -89,7 +89,7 @@
                 </svg>
               </button>
             </div>
-            <template if="transcription || playbackUrl">
+            <template if="transcriptions.length || playbackUrl">
               <div class="space-y-6">
                 <audio
                   ref="player"
@@ -142,10 +142,12 @@
                 <template if="converting">
                   <div class="w-2 h-6 mt-2 bg-white animate-pulse"></div>
                 </template>
-                <x-transcription
-                  class="block w-full text-white"
-                  bind-text="transcription"
-                ></x-transcription>
+                <template for="next of transcriptions">
+                  <x-transcription
+                    class="block w-full text-white mb-2"
+                    bind-text="next"
+                  ></x-transcription>
+                </template>
               </div>
             </template>
           </div>
