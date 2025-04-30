@@ -23,6 +23,31 @@
   </head>
 
   <body>
+    <template component="x-transcription">
+      <div ref="div"></div>
+      <script setup>
+        import { defineProp, watch, ref } from "@li3/web";
+
+        export default function () {
+          const div = ref("div");
+          const text = defineProp("text");
+
+          watch(text, (v) => {
+            const parts = text.split(" ");
+            div.value.innerHTML = "";
+            text.forEach((word, i) => {
+              const d = document.createElement("span");
+              d.innerText = word + " ";
+              d.className = "opacity-0 transition-opacity duration-300";
+              div.value.appendChild(d);
+              setTimeout(() => d.classList.add("opacity-100"), 100 + 16 * i);
+            });
+          });
+
+          return { div };
+        }
+      </script>
+    </template>
     <template app>
       <script setup src="/main.mjs"></script>
       <div
@@ -116,11 +141,12 @@
                   >
                 </div>
                 <template if="converting">
-                  <div class="w-2 h-5 mt-2 bg-white animate-pulse"></div>
+                  <div class="w-2 h-6 mt-2 bg-white animate-pulse"></div>
                 </template>
-                <div class="w-full text-white">
-                  {{ transcription }}
-                </div>
+                <x-transcription
+                  class="block w-full text-white"
+                  bind-text="transcription"
+                ></x-transcription>
               </div>
             </template>
           </div>
