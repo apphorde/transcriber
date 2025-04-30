@@ -33,9 +33,8 @@
           const text = defineProp("text");
 
           watch(text, (v) => {
-            const parts = v.split(" ");
             div.value.innerHTML = "";
-            text.forEach((word, i) => {
+            v.split(" ").forEach((word, i) => {
               const d = document.createElement("span");
               d.innerText = word + " ";
               d.className = "opacity-0 transition-opacity duration-300";
