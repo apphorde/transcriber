@@ -33,7 +33,7 @@
           const text = defineProp("text");
 
           watch(text, (v) => {
-            const parts = text.split(" ");
+            const parts = v.split(" ");
             div.value.innerHTML = "";
             text.forEach((word, i) => {
               const d = document.createElement("span");
