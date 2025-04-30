@@ -115,8 +115,10 @@
                     >download</a
                   >
                 </div>
-
-                <div class="rounded-md w-full text-white">
+                <template if="converting">
+                  <div class="w-2 h-5 mt-2 bg-white animate-pulse"></div>
+                </template>
+                <div class="w-full text-white">
                   {{ transcription }}
                 </div>
               </div>

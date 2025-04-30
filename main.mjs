@@ -10,6 +10,7 @@ export default function setup() {
   const transcription = signal("");
   const running = signal(false);
   const playing = signal(false);
+  const converting = signal(false);
   const elapsedTime = signal(0);
   const minutes = effect(() => Math.floor(elapsedTime.value / 60));
   const seconds = effect(() => Math.floor(elapsedTime.value % 60));
@@ -34,7 +35,9 @@ export default function setup() {
   async function onChange() {
     if (audio.value) {
       playbackUrl.value = URL.createObjectURL(audio.value);
+      converting.value = true;
       transcription.value = await vtt(audio.value);
+      converting.value = false;
     }
   }
 
@@ -75,6 +78,7 @@ export default function setup() {
     seconds,
     transcription,
     playing,
+    converting,
     supported,
     playbackUrl,
     running,
