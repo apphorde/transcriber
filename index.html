@@ -26,7 +26,7 @@
     <template component="x-transcription">
       <div ref="div"></div>
       <script setup>
-        import { defineProp, watch, ref } from "@li3/web";
+        import { onInit, defineProp, watch, ref } from "@li3/web";
 
         export default function () {
           const div = ref("div");
@@ -50,6 +50,7 @@
         }
       </script>
     </template>
+
     <template app>
       <script setup src="/main.mjs"></script>
       <div
@@ -147,7 +148,7 @@
                 </template>
                 <template for="next of transcriptions">
                   <x-transcription
-                    class="block w-full text-white mb-2"
+                    class="block w-full text-white mt-2"
                     bind-text="next"
                   ></x-transcription>
                 </template>
