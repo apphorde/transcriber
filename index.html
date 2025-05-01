@@ -19,6 +19,7 @@
     </script>
     <script type="module">
       import "@li3/web";
+      import "@lucide/lucide-icon";
     </script>
   </head>
 
@@ -105,18 +106,34 @@
                   <button
                     on-click="onPlayPause()"
                     class="text-white py-3 px-8 rounded-full bg-darker text-center"
-                  ><lucide-icon bind-icon="playing ? 'pause' : 'play'" size="24" title="Play/pause"></lucide-icon></button>
+                  >
+                    <lucide-icon
+                      bind-icon="playing ? 'pause' : 'play'"
+                      size="24"
+                      title="Play/pause"
+                    ></lucide-icon>
+                  </button>
                   <button
                     class="text-white font-bold py-3 px-8 rounded-full bg-darker w-1/2 text-center"
                     on-click="onReset()"
-                  ><lucide-icon icon="trash-2" size="24" title="Reset"></lucide-icon></button>
+                  >
+                    <lucide-icon
+                      icon="trash-2"
+                      size="24"
+                      title="Reset"
+                    ></lucide-icon>
+                  </button>
                   <a
                     class="text-white font-bold py-3 px-8 rounded-full bg-darker w-1/2 text-center"
                     download
                     filename="audio.mp3"
                     bind-href="playbackUrl"
-                    ><lucide-icon icon="trash-2" size="24" title="Download"></lucide-icon></a
-                  >
+                    ><lucide-icon
+                      icon="trash-2"
+                      size="24"
+                      title="Download"
+                    ></lucide-icon
+                  ></a>
                 </div>
                 <template if="converting">
                   <div class="w-2 h-6 mt-2 bg-white animate-pulse"></div>
