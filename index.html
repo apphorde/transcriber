@@ -132,15 +132,13 @@
                   <button
                     class="text-white font-bold py-3 px-8 rounded-full bg-darker w-1/2 text-center"
                     on-click="onReset()"
-                  >
-                    reset
-                  </button>
+                  ><lucide-icon icon="trash-2" size="24" title="Reset"></lucide-icon></button>
                   <a
                     class="text-white font-bold py-3 px-8 rounded-full bg-darker w-1/2 text-center"
                     download
                     filename="audio.mp3"
                     bind-href="playbackUrl"
-                    >download</a
+                    ><lucide-icon icon="trash-2" size="24" title="Download"></lucide-icon></a
                   >
                 </div>
                 <template if="converting">
