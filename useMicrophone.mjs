@@ -1,9 +1,9 @@
-import { signal } from "@li3/reactive";
+import { ref } from "@li3/web";
 
 export function useMicrophone() {
-  const supported = signal(!!navigator.mediaDevices?.getUserMedia);
-  const audio = signal(null, { shallow: true });
-  const recorder = signal(null, { shallow: true });
+  const supported = ref(!!navigator.mediaDevices?.getUserMedia);
+  const audio = ref(null, { shallow: true });
+  const recorder = ref(null, { shallow: true });
   let chunks = [];
 
   async function capture() {

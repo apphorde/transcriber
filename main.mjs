@@ -1,21 +1,21 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { effect, signal, observer } from "@li3/reactive";
+import { computed, ref, watch } from "@li3/web";
 import { useMicrophone } from "./useMicrophone.mjs";
 
 export default function setup() {
   const { start, stop, audio, supported } = useMicrophone();
 
   let timer = 0;
-  const playbackUrl = signal("");
-  const transcriptions = signal([]);
-  const running = signal(false);
-  const playing = signal(false);
-  const converting = signal(false);
-  const elapsedTime = signal(0);
-  const minutes = effect(() => Math.floor(elapsedTime.value / 60));
-  const seconds = effect(() => Math.floor(elapsedTime.value % 60));
+  const playbackUrl = ref("");
+  const transcriptions = ref([]);
+  const running = ref(false);
+  const playing = ref(false);
+  const converting = ref(false);
+  const elapsedTime = ref(0);
+  const minutes = computed(() => Math.floor(elapsedTime.value / 60));
+  const seconds = computed(() => Math.floor(elapsedTime.value % 60));
   const padLeft = (n) => String(n).padStart(2, "0");
-  const player = signal(null);
+  const player = ref(null);
 
   async function transcribe() {
     clearInterval(timer);
@@ -44,7 +44,7 @@ export default function setup() {
     }
   }
 
-  observer(audio, onChange);
+  watch(audio, onChange);
 
   async function onStart() {
     if (running.value) {
@@ -69,7 +69,7 @@ export default function setup() {
     elapsedTime.value = 0;
   }
 
-  observer(player, (value) => {
+  watch(player, (value) => {
     if (value) {
       player.value.onplay = () => (playing.value = true);
       player.value.onpause = () => (playing.value = false);
