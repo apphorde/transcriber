@@ -1,8 +1,8 @@
 import vtt from "https://vtt.jsfn.run/index.mjs";
-import { computed, ref, watch } from "@li3/web";
-import { useMicrophone } from "./useMicrophone.mjs";
+import { computed, ref, watch, templateRef } from "@li3/web";
+import { useMicrophone } from "../useMicrophone.mjs";
 
-export default function setup() {
+export default function transcriber() {
   const { start, stop, audio, supported } = useMicrophone();
 
   let timer = 0;
@@ -15,7 +15,7 @@ export default function setup() {
   const minutes = computed(() => Math.floor(elapsedTime.value / 60));
   const seconds = computed(() => Math.floor(elapsedTime.value % 60));
   const padLeft = (n) => String(n).padStart(2, "0");
-  const player = ref(null);
+  const player = templateRef('player');
 
   async function transcribe() {
     clearInterval(timer);
